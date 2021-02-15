@@ -3,10 +3,9 @@ import re
 from flask import Flask, send_file
 from jikanpy import Jikan
 from PIL import ImageFont
-from AnimeCacheManager import AnimeCacheManager
-from UserAssetsManager import UserAssetsManager
-from SeasonalChartGenerator import AnimeBanner, SeasonalChart, Generator
-
+from .AnimeCacheManager import AnimeCacheManager
+from .UserAssetsManager import UserAssetsManager
+from .SeasonalChartGenerator import AnimeBanner, SeasonalChart, Generator
 
 app = Flask(__name__)
 
@@ -54,3 +53,8 @@ def get_seasonal_chart(username, color='2DB039'):
     else:
         print("Cache hit: %s [%s]" % (filename, username))
         return send_file(path, mimetype='image/png')
+
+if __name__ == "__main__":
+    app.run()
+else:
+    application = app
