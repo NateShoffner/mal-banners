@@ -1,3 +1,6 @@
+.dockerignore
+.git
 .gitignore
 cache
 renders
+__pycache__
