@@ -6,13 +6,12 @@ import os
 
 class Generator:
 
-    title_font = ImageFont.truetype('../assets/fonts/arial-unicode-ms.ttf', 12)
-    text_font = ImageFont.truetype('../assets/fonts/verdana.ttf', 11)
-
-    def __init__(self, jikan, anime_cache, user_asset_manager):
+    def __init__(self, jikan, anime_cache, user_asset_manager, title_font, text_font):
         self.jikan = jikan
         self.anime_cache = anime_cache
         self.user_asset_manager = user_asset_manager
+        self.title_font = title_font
+        self.text_font = text_font
 
     def get_seasonal_watching(self, user):
         #todo seasonal shows that are done airing won't show up
@@ -26,7 +25,9 @@ class Generator:
         return seasonal
 
     def generate(self, username, filename, watching_fill_color = '#2DB039'):
+        print("Fetching seasonal: %s" % username)
         seasonal = self.get_seasonal_watching(username)
+        print("Fetched seasonal: %s" % username)
 
         banners = []
 
