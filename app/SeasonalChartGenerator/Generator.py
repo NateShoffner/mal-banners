@@ -14,15 +14,17 @@ class Generator:
         self.text_font = text_font
 
     def get_seasonal_watching(self, user):
-        #todo seasonal shows that are done airing won't show up
         watching = self.jikan.user(username=user, request='animelist', argument='watching')
 
-        seasonal = []
-        for anime in watching['anime']:
-            if anime['airing_status'] == 1:
-                seasonal.append(anime)
+        #todo cache this
+        seasonal = self.jikan.season()
 
-        return seasonal
+        user_seasonal = []
+
+        for anime in watching['anime']:
+            if any(x['mal_id'] == anime['mal_id'] for x in seasonal['anime']):
+                user_seasonal.append(anime)
+        return user_seasonal
 
     def generate(self, username, filename, watching_fill_color = '#2DB039'):
         print("Fetching seasonal: %s" % username)
