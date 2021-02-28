@@ -12,10 +12,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("username", help="Username of MyAnimeList user to fetch data from")
     parser.add_argument("output_dir", help="Output directory for the renders")
+    parser.add_argument("--watching_color", help="Fill color of the watching progress bar", default="#2DB039")
 
     args = parser.parse_args()
     username = args.username
     output_dir = args.output_dir
+    watching_color = args.watching_color
 
     jikan = Jikan()
 
@@ -25,5 +27,8 @@ if __name__ == "__main__":
     user_asset_manager = UserAssetsManager(output_dir)
     user_asset_manager.init()
 
-    generator = Generator(jikan, anime_cache_manager, user_asset_manager)
-    generator.generate(username, 'seasonal_chart.png')
+    title_font = ImageFont.truetype('../assets/fonts/arial-unicode-ms.ttf', 12)
+    text_font = ImageFont.truetype('../assets/fonts/verdana.ttf', 11)
+
+    generator = Generator(jikan, anime_cache_manager, user_asset_manager, title_font, text_font)
+    generator.generate(username, 'seasonal_chart.png', watching_color)
